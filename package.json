@@ -1,8 +1,8 @@
 {
   "name": "@geekagency/redux-action-types",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Action Types lib for redux (or anything)",
-  "main": "lib/ActionTypes/index.js",
+  "main": "ActionTypes/index.js",
   "scripts": {
     "build": "rm -rf ./lib; node_modules/@babel/cli/bin/babel.js --out-dir lib ./src && node lib/index.js && cp package.json ./lib",
     "build:raw": "rm -rf ./lib; cp -a ./src ./lib && node lib/index.js && cp package.json ./lib",
@@ -15,8 +15,9 @@
   ],
   "dependencies": {
     "@geekagency/composite-js": "^0.0.6",
+    "@geekagency/redux-action-types": "^1.0.0",
     "core-js": "^3.1.4",
-    "core-js-pure": "^3.1.4",
+    "core-js-pure": "^3.1.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
@@ -30,8 +31,7 @@
     "babel-plugin-transform-object-from-entries": "^1.0.0",
     "babel-preset-minify": "^0.5.0",
     "eslint": "^5.16.0",
-    "jest": "^24.8.0",
-
+    "jest": "^24.8.0"
   },
   "author": "Fabien Di Tore",
   "license": "MIT"

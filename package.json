@@ -35,5 +35,18 @@
     "jest": "^24.8.0"
   },
   "author": "Fabien Di Tore",
-  "license": "MIT"
+  "license": "MIT",
+  "directories": {
+    "example": "examples",
+    "lib": "lib",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FDT2k/redux-action-types.git"
+  },
+  "bugs": {
+    "url": "https://github.com/FDT2k/redux-action-types/issues"
+  },
+  "homepage": "https://github.com/FDT2k/redux-action-types#readme"
 }

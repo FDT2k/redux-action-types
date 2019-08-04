@@ -1,0 +1,38 @@
+{
+  "name": "@geekagency/redux-action-types",
+  "version": "1.0.0",
+  "description": "Action Types lib for redux (or anything)",
+  "main": "lib/ActionTypes/index.js",
+  "scripts": {
+    "build": "rm -rf ./lib; node_modules/@babel/cli/bin/babel.js --out-dir lib ./src && node lib/index.js && cp package.json ./lib",
+    "build:raw": "rm -rf ./lib; cp -a ./src ./lib && node lib/index.js && cp package.json ./lib",
+    "pub": "cd ./lib;npm publish; cd .."
+  },
+  "keywords": [
+    "redux",
+    "actiontypes",
+    "action-types"
+  ],
+  "dependencies": {
+    "@geekagency/composite-js": "^0.0.6",
+    "core-js": "^3.1.4",
+    "core-js-pure": "^3.1.4",
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/node": "^7.5.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-eslint": "^10.0.2",
+    "babel-plugin-lodash": "^3.3.4",
+    "babel-plugin-transform-object-from-entries": "^1.0.0",
+    "babel-preset-minify": "^0.5.0",
+    "eslint": "^5.16.0",
+    "jest": "^24.8.0",
+
+  },
+  "author": "Fabien Di Tore",
+  "license": "MIT"
+}

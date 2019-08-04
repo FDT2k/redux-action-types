@@ -1,3 +1,4 @@
+
 # redux-action-types
 
 This is a modest contribution to propose a composable way to deal with action-types. This is a first step to deal with modular Reducers and ActionCreators
@@ -48,15 +49,15 @@ would result in
 
 
     {
-    jobs: {
-	    JOB_A: 'JOB_A',
-	    JOB_B: 'JOB_B'
-		}
-	comments:{
-		ADD_COMMENT: 'ADD_COMMENT',
-		...etc...
-		}
-    }
+      jobs: {
+  	    JOB_A: 'JOB_A',
+  	    JOB_B: 'JOB_B'
+  		}
+    	comments:{
+    		ADD_COMMENT: 'ADD_COMMENT',
+    		...etc...
+    	}
+  }
 
 
 Lots of parenthesis yeah ?
@@ -80,7 +81,17 @@ Let's refactor some bits
 		actionType('HELLO_WORLD')
 	)
 
+## API
 
+  * combineActionTypes
+  * createActionName
+  * defaultNameCreator
+  * actionGroup
+  * actionRename
+  * lockName
+  * actionExpand
+  * actionType
+  * factory
 
 
 

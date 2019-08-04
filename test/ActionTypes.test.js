@@ -1,5 +1,5 @@
 import '@babel/polyfill'
-import {createActionName,actionRename,actionType,applyActionNames,actionExpand,actionGroup,createActionTypes} from '../src/ActionTypes';
+import {createActionName,actionRename,actionType,applyActionNames,actionExpand,actionGroup,combineActionTypes} from '../src/ActionTypes';
 
 
 
@@ -25,7 +25,7 @@ test ('ActionRename',(done)=>{
 test ('ActionExpand',(done)=>{
   let expected = {"JOB_DELETE": "JOB_DELETE", "JOB_INSERT": "JOB_INSERT"};
   let CDExpand = actionExpand(['INSERT','DELETE']);
-  expect( createActionTypes(...CDExpand('JOB'))()).toEqual(expected);
+  expect( combineActionTypes(...CDExpand('JOB'))()).toEqual(expected);
 
 })
 
@@ -35,7 +35,7 @@ test ('CreateActionTypes',(done)=>{
   let expected = {
     LIST:'LIST'
   }
-  let res = createActionTypes(
+  let res = combineActionTypes(
     actionType('LIST')
   )
   expect(res()).toEqual(expected)
@@ -71,12 +71,12 @@ test ('CreateActionTypes',(done)=>{
   let expected = {
     LIST:'LIST'
   }
-  let res = createActionTypes(
+  let res = combineActionTypes(
     actionType('LIST')
   )
   expect(res()).toEqual(expected)
 
-  res = createActionTypes(
+  res = combineActionTypes(
     'LIST'
   )
   expect(res()).toEqual(expected)
@@ -91,7 +91,7 @@ test ('CreateActionTypes_expand',(done)=>{
     LIST_INSERT: "LIST_INSERT",
     LIST_UPDATE: "LIST_UPDATE",
   }
-  let res = createActionTypes(
+  let res = combineActionTypes(
     'LIST',
     CRUDExpand('LIST')
   )
@@ -112,7 +112,7 @@ test ('CreateActionTypes_group',(done)=>{
       },
 
   }
-  let res = createActionTypes(
+  let res = combineActionTypes(
     'LIST',
     CRUDExpand('LIST'),
     actionGroup('LIST2')(CRUDExpand('LIST'))
@@ -122,7 +122,7 @@ test ('CreateActionTypes_group',(done)=>{
 
 
 
-test ('Naming Actions',(done)=>{
+test ('Naming Actions and ensure that we dont erase actionRename',(done)=>{
   let expected = {
     LIST:'LIST',
     LIST_DELETE: "LIST_DELETE",
@@ -136,17 +136,59 @@ test ('Naming Actions',(done)=>{
   }
 
   let another_reducer_naming = createActionName('app')('subreducer')
-  console.log('expand ',CRUDExpand('LIST'))
-  console.log('rename ',actionRename(another_reducer_naming)(CRUDExpand('LIST')))
-  let res = createActionTypes(
+  let res = combineActionTypes(
     'LIST',
     CRUDExpand('LIST'),
     actionGroup('LIST2')(actionRename(another_reducer_naming)(CRUDExpand('LIST')))
   )
   expect(res()).toEqual(expected)
 
-  let nameCreator = createActionName('myapp')('myreducer');
 
+  // ensuring that naming is not erased
+  let nameCreator = createActionName('myapp')('myreducer');
   let final =res(nameCreator);
-  console.log(final)
+
+  expect(final).toEqual({ LIST: 'myapp/myreducer/LIST',
+      LIST_INSERT: 'myapp/myreducer/LIST_INSERT',
+      LIST_DELETE: 'myapp/myreducer/LIST_DELETE',
+      LIST_UPDATE: 'myapp/myreducer/LIST_UPDATE',
+      LIST2:
+       { LIST_INSERT: 'app/subreducer/LIST_INSERT',
+         LIST_DELETE: 'app/subreducer/LIST_DELETE',
+         LIST_UPDATE: 'app/subreducer/LIST_UPDATE' } })
+})
+
+
+test('combine actionTypes ',()=>{
+  let expected = {
+      ACTION1: 'ACTION1',
+      ACTION2: 'ACTION2',
+      ACTION3: 'ACTION3',
+      ACTION4: 'ACTION4' }
+  let type1 = combineActionTypes(
+    'ACTION1',
+    'ACTION2'
+  )
+
+  let type2 = combineActionTypes(
+    'ACTION3',
+    'ACTION4'
+  )
+
+  let combined = combineActionTypes(
+    type1,
+    type2
+  )
+
+  expect(combined()).toEqual(expected)
+
+  let grouped = combineActionTypes(
+    actionGroup('type1')(type1),
+    actionGroup('type2')(type2),
+  )
+
+  expect(grouped()).toEqual({ type1: { ACTION1: 'ACTION1', ACTION2: 'ACTION2' },
+      type2: { ACTION3: 'ACTION3', ACTION4: 'ACTION4' } }
+)
+
 })

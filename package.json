@@ -6,7 +6,8 @@
   "scripts": {
     "build": "rm -rf ./lib; node_modules/@babel/cli/bin/babel.js --out-dir lib ./src && node lib/index.js && cp package.json ./lib",
     "build:raw": "rm -rf ./lib; cp -a ./src ./lib && node lib/index.js && cp package.json ./lib",
-    "pub": "cd ./lib;npm publish; cd .."
+    "pub": "cd ./lib;npm publish; cd ..",
+    "test":"npx jest"
   },
   "keywords": [
     "redux",

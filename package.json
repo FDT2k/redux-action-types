@@ -7,7 +7,7 @@
     "build": "rm -rf ./lib; node_modules/@babel/cli/bin/babel.js --out-dir lib ./src && node lib/index.js && cp package.json ./lib",
     "build:raw": "rm -rf ./lib; cp -a ./src ./lib && node lib/index.js && cp package.json ./lib",
     "pub": "cd ./lib;npm publish; cd ..",
-    "test": "npx jest"
+    "test": "npx jest --coverage && npx jest-coverage-badges"
   },
   "keywords": [
     "redux",
@@ -32,7 +32,8 @@
     "babel-plugin-transform-object-from-entries": "^1.0.0",
     "babel-preset-minify": "^0.5.0",
     "eslint": "^5.16.0",
-    "jest": "^24.8.0"
+    "jest": "^24.8.0",
+    "jest-coverage-badges": "^1.1.2"
   },
   "author": "Fabien Di Tore",
   "license": "MIT",
@@ -48,5 +49,12 @@
   "bugs": {
     "url": "https://github.com/FDT2k/redux-action-types/issues"
   },
-  "homepage": "https://github.com/FDT2k/redux-action-types#readme"
+  "homepage": "https://github.com/FDT2k/redux-action-types#readme",
+  "jest": {
+    "coverageReporters": [
+      "json-summary",
+      "text",
+      "lcov"
+    ]
+  }
 }

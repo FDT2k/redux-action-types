@@ -2,7 +2,7 @@
 # redux-action-types
 
 This Readme is a Work in progress.
-Have a look at the examples folder to see an example
+Have a look at the examples folder to see a basic "how it works" 
 
 This is a modest contribution to propose a composable way to deal with action-types. This is a first step to deal with modular Reducers and ActionCreators
 

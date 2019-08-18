@@ -1,5 +1,5 @@
 import '@babel/polyfill'
-import {createActionName,actionRename,actionType,applyActionNames,actionExpand,actionGroup,combineActionTypes} from '../src/ActionTypes';
+import {createActionName,makeCombineActionTypes,actionRename,actionType,applyActionNames,actionExpand,actionGroup,combineActionTypes} from '../src/ActionTypes';
 
 
 
@@ -9,6 +9,8 @@ let nameCreator = createActionName('myapp')('myreducer')
 test ('ActionNamer',(done)=>{
   expect(nameCreator('test')).toBe('myapp/myreducer/test')
 })
+
+
 
 test ('ActionType',(done)=>{
   expect(actionType('LIST')()).toEqual({LIST:'LIST'})

@@ -753,19 +753,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@geekagency/composite-js@^0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@geekagency/composite-js/-/composite-js-0.0.6.tgz#5dfa93106fc93e59721318ed024b6f32a96b23ca"
-  integrity sha512-/bYFUxnofyc6k7VvY75z84OfhyDJjWsucWkPo9qoyPuUiHDjsxij6q+o5oopsOE8pxpQa/5AK9CQQhV/PKp0LQ==
-
-"@geekagency/redux-action-types@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@geekagency/redux-action-types/-/redux-action-types-1.0.0.tgz#b8cb5ca4e409457ad2948a6aa56e33751945507d"
-  integrity sha512-8HonaaM6iIasXgURwl0VAIR/JnPuQzUqVR2pVLjjg/8VYhKqh0TG9Hn2nvdknp/ULNfHgcqrEcOYSUNqM62vBw==
-  dependencies:
-    "@geekagency/composite-js" "^0.0.6"
-    core-js "^3.1.4"
-    core-js-pure "^3.1.4"
+"@geekagency/composite-js@^0.3.5":
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/@geekagency/composite-js/-/composite-js-0.3.5.tgz#101930dfe8de5e371e3967320eedf25477adb78a"
+  integrity sha512-EIFU2HxmPijQtFa0Mpr3kkH9nbfL40lY0W67VAXFy0bmp4KfEM3NkP23V/Ge7F69m7S986jF1hI/elcT1PlUlA==
 
 "@jest/console@^24.7.1":
   version "24.7.1"

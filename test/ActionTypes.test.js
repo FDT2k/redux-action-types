@@ -21,6 +21,9 @@ test ('ActionRename',(done)=>{
   expect(actionType('LIST')()).toEqual({LIST:'LIST'})
   expect(actionType('LIST')(nameCreator)).toEqual({LIST:'myapp/myreducer/LIST'})
   expect(actionRename(nameCreator2)(actionType('LIST'))(nameCreator)).toEqual({LIST:'anotherapp/anotherreducer/LIST'})
+//  console.log(combineActionTypes(actionRename(nameCreator2)(actionType('LIST'),actionType('LIST2')))())
+  expect(combineActionTypes(actionRename(nameCreator2)(actionType('LIST'),actionType('LIST2')))(nameCreator)).toEqual({ LIST: 'anotherapp/anotherreducer/LIST',
+      LIST2: 'anotherapp/anotherreducer/LIST2' })
 })
 test ('ActionExpand',(done)=>{
   let expected = {"JOB_DELETE": "JOB_DELETE", "JOB_INSERT": "JOB_INSERT"};

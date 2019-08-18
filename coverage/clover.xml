@@ -1,35 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1564947677688" clover="3.2.0">
-  <project timestamp="1564947677688" name="All files">
-    <metrics statements="26" coveredstatements="26" conditionals="8" coveredconditionals="7" methods="16" coveredmethods="16" elements="50" coveredelements="49" complexity="0" loc="26" ncloc="26" packages="1" files="1" classes="1"/>
+<coverage generated="1565070292452" clover="3.2.0">
+  <project timestamp="1565070292453" name="All files">
+    <metrics statements="24" coveredstatements="24" conditionals="8" coveredconditionals="7" methods="16" coveredmethods="16" elements="48" coveredelements="47" complexity="0" loc="24" ncloc="24" packages="1" files="1" classes="1"/>
     <file name="index.js" path="/home/fabien/Documents/work/gka-redux-action-types/src/ActionTypes/index.js">
-      <metrics statements="26" coveredstatements="26" conditionals="8" coveredconditionals="7" methods="16" coveredmethods="16"/>
-      <line num="4" count="14" type="stmt"/>
+      <metrics statements="24" coveredstatements="24" conditionals="8" coveredconditionals="7" methods="16" coveredmethods="16"/>
+      <line num="4" count="16" type="stmt"/>
       <line num="6" count="1" type="stmt"/>
-      <line num="10" count="18" type="cond" truecount="1" falsecount="0"/>
-      <line num="11" count="21" type="stmt"/>
-      <line num="13" count="21" type="stmt"/>
-      <line num="14" count="52" type="cond" truecount="2" falsecount="0"/>
+      <line num="10" count="19" type="cond" truecount="1" falsecount="0"/>
+      <line num="11" count="22" type="stmt"/>
+      <line num="13" count="22" type="stmt"/>
+      <line num="14" count="54" type="cond" truecount="2" falsecount="0"/>
       <line num="15" count="13" type="stmt"/>
-      <line num="17" count="52" type="stmt"/>
-      <line num="18" count="52" type="stmt"/>
-      <line num="19" count="52" type="stmt"/>
+      <line num="17" count="54" type="stmt"/>
+      <line num="18" count="54" type="stmt"/>
+      <line num="19" count="54" type="stmt"/>
       <line num="25" count="6" type="cond" truecount="1" falsecount="0"/>
       <line num="26" count="7" type="stmt"/>
       <line num="27" count="7" type="stmt"/>
-      <line num="30" count="2" type="cond" truecount="0" falsecount="1"/>
-      <line num="31" count="2" type="stmt"/>
-      <line num="34" count="2" type="cond" truecount="2" falsecount="0"/>
-      <line num="35" count="1" type="stmt"/>
-      <line num="38" count="1" type="stmt"/>
-      <line num="39" count="3" type="stmt"/>
-      <line num="40" count="6" type="stmt"/>
+      <line num="35" count="3" type="cond" truecount="0" falsecount="1"/>
+      <line num="36" count="3" type="stmt"/>
+      <line num="39" count="3" type="cond" truecount="2" falsecount="0"/>
+      <line num="40" count="1" type="stmt"/>
+      <line num="42" count="8" type="stmt"/>
       <line num="45" count="1" type="stmt"/>
-      <line num="49" count="1" type="stmt"/>
-      <line num="50" count="7" type="stmt"/>
-      <line num="51" count="20" type="stmt"/>
-      <line num="58" count="42" type="cond" truecount="1" falsecount="0"/>
-      <line num="59" count="48" type="stmt"/>
+      <line num="52" count="1" type="stmt"/>
+      <line num="53" count="7" type="stmt"/>
+      <line num="54" count="20" type="stmt"/>
+      <line num="61" count="44" type="cond" truecount="1" falsecount="0"/>
+      <line num="62" count="50" type="stmt"/>
     </file>
   </project>
 </coverage>

@@ -16,7 +16,6 @@
   ],
   "dependencies": {
     "@geekagency/composite-js": "^0.0.6",
-    "@geekagency/redux-action-types": "^1.0.0",
     "core-js": "^3.1.4",
     "core-js-pure": "^3.1.4"
   },

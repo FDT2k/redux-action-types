@@ -4,7 +4,7 @@ import {createActionName,makeCombineActionTypes,actionRename,actionType,applyAct
 
 
 const CRUDExpand =  actionExpand(['INSERT','DELETE','UPDATE']);
-let nameCreator = createActionName('myapp')('myreducer')
+const nameCreator = createActionName('myapp')('myreducer')
 
 test ('ActionNamer',(done)=>{
   expect(nameCreator('test')).toBe('myapp/myreducer/test')

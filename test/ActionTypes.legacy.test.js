@@ -1,47 +1,36 @@
 import '@babel/polyfill'
-import * as a from '../src/ActionTypes';
+import {createActionName,makeCombineActionTypes,actionRename,actionType,applyActionNames,actionExpand,actionGroup,combineActionTypes} from '../src/ActionTypes/legacy';
 
 
 
-const nameEnhancer = a.makeNamespaceEnhancer('myapp')('myreducer')
-let CRUDExpand = a.expandSuffix(['INSERT','DELETE','UPDATE'])
+const CRUDExpand =  actionExpand(['INSERT','DELETE','UPDATE']);
+const nameCreator = createActionName('myapp')('myreducer')
 
 test ('ActionNamer',(done)=>{
-  expect(nameEnhancer('test')).toBe('myapp/myreducer/test')
+  expect(nameCreator('test')).toBe('myapp/myreducer/test')
 })
 
 
 
 test ('ActionType',(done)=>{
-  expect(a.actionType('LIST')()).toEqual({LIST:'LIST'})
-  expect(a.actionType('LIST')(nameEnhancer)).toEqual({LIST:'myapp/myreducer/LIST'})
+  expect(actionType('LIST')()).toEqual({LIST:'LIST'})
+  expect(actionType('LIST')(nameCreator)).toEqual({LIST:'myapp/myreducer/LIST'})
 })
 
 
 test ('ActionRename',(done)=>{
-  let nameEnhancer2 = a.makeNamespaceEnhancer('anotherapp')('anotherreducer')
-  expect(
-    a.actionType('LIST')()
-  ).toEqual({LIST:'LIST'})
-  expect(
-    a.actionType('LIST')(nameEnhancer)
-  ).toEqual({LIST:'myapp/myreducer/LIST'})
-
-  expect(
-    a.hold(nameEnhancer2)(a.actionType('LIST'))(nameEnhancer)
-  ).toEqual({LIST:'anotherapp/anotherreducer/LIST'})
-
+  let nameCreator2 = createActionName('anotherapp')('anotherreducer')
+  expect(actionType('LIST')()).toEqual({LIST:'LIST'})
+  expect(actionType('LIST')(nameCreator)).toEqual({LIST:'myapp/myreducer/LIST'})
+  expect(actionRename(nameCreator2)(actionType('LIST'))(nameCreator)).toEqual({LIST:'anotherapp/anotherreducer/LIST'})
 //  console.log(combineActionTypes(actionRename(nameCreator2)(actionType('LIST'),actionType('LIST2')))())
-  expect(
-    a.combineActionTypes(a.hold(nameEnhancer2)(a.actionType('LIST'),a.actionType('LIST2')))(nameEnhancer)
-  ).toEqual({ LIST: 'anotherapp/anotherreducer/LIST',
+  expect(combineActionTypes(actionRename(nameCreator2)(actionType('LIST'),actionType('LIST2')))(nameCreator)).toEqual({ LIST: 'anotherapp/anotherreducer/LIST',
       LIST2: 'anotherapp/anotherreducer/LIST2' })
 })
-
 test ('ActionExpand',(done)=>{
   let expected = {"JOB_DELETE": "JOB_DELETE", "JOB_INSERT": "JOB_INSERT"};
-  let CDExpand = a.expandSuffix(['INSERT','DELETE']);
-  expect( a.combineActionTypes(CDExpand('JOB'))()).toEqual(expected);
+  let CDExpand = actionExpand(['INSERT','DELETE']);
+  expect( combineActionTypes(...CDExpand('JOB'))()).toEqual(expected);
 
 })
 
@@ -51,8 +40,8 @@ test ('CreateActionTypes',(done)=>{
   let expected = {
     LIST:'LIST'
   }
-  let res = a.combineActionTypes(
-    a.actionType('LIST')
+  let res = combineActionTypes(
+    actionType('LIST')
   )
   expect(res()).toEqual(expected)
 
@@ -65,8 +54,8 @@ test ('ActionGroup',(done)=>{
          "LIST": "LIST",
          "LISTMORE": "LISTMORE",
        }}
-  let group = a.groupAs('worker')
-  let res = group(a.actionType('LIST'),a.actionType('LISTMORE'))();
+  let group = actionGroup('worker')
+  let res = group(actionType('LIST'),actionType('LISTMORE'))();
   expect(res).toEqual(expected)
 })
 
@@ -76,9 +65,9 @@ test ('Expand in group',(done)=>{
          LIST_DELETE:"LIST_DELETE",
          LIST_UPDATE:"LIST_UPDATE",
        }}
-  let workerGroup = a.groupAs('worker');
-  let res = workerGroup(CRUDExpand('LIST'));
-  expect(res()).toEqual(expected)
+  let workerGroup = actionGroup('worker')
+  let res = workerGroup(CRUDExpand('LIST'))();
+  expect(res).toEqual(expected)
 })
 
 
@@ -87,12 +76,12 @@ test ('CreateActionTypes',(done)=>{
   let expected = {
     LIST:'LIST'
   }
-  let res = a.combineActionTypes(
-    a.actionType('LIST')
+  let res = combineActionTypes(
+    actionType('LIST')
   )
   expect(res()).toEqual(expected)
 
-  res = a.combineActionTypes(
+  res = combineActionTypes(
     'LIST'
   )
   expect(res()).toEqual(expected)
@@ -107,7 +96,7 @@ test ('CreateActionTypes_expand',(done)=>{
     LIST_INSERT: "LIST_INSERT",
     LIST_UPDATE: "LIST_UPDATE",
   }
-  let res = a.combineActionTypes(
+  let res = combineActionTypes(
     'LIST',
     CRUDExpand('LIST')
   )
@@ -128,10 +117,10 @@ test ('CreateActionTypes_group',(done)=>{
       },
 
   }
-  let res = a.combineActionTypes(
+  let res = combineActionTypes(
     'LIST',
     CRUDExpand('LIST'),
-    a.groupAs('LIST2')(CRUDExpand('LIST'))
+    actionGroup('LIST2')(CRUDExpand('LIST'))
   )
   expect(res()).toEqual(expected)
 })
@@ -151,17 +140,17 @@ test ('Naming Actions and ensure that we dont erase actionRename',(done)=>{
       },
   }
 
-  let another_reducer_naming = a.makeNamespaceEnhancer('app')('subreducer')
-  let res = a.combineActionTypes(
+  let another_reducer_naming = createActionName('app')('subreducer')
+  let res = combineActionTypes(
     'LIST',
     CRUDExpand('LIST'),
-    a.groupAs('LIST2')(a.hold(another_reducer_naming)(CRUDExpand('LIST')))
+    actionGroup('LIST2')(actionRename(another_reducer_naming)(CRUDExpand('LIST')))
   )
   expect(res()).toEqual(expected)
 
 
   // ensuring that naming is not erased
-  let nameCreator = a.makeNamespaceEnhancer('myapp')('myreducer');
+  let nameCreator = createActionName('myapp')('myreducer');
   let final =res(nameCreator);
 
   expect(final).toEqual({ LIST: 'myapp/myreducer/LIST',
@@ -181,26 +170,26 @@ test('combine actionTypes ',()=>{
       ACTION2: 'ACTION2',
       ACTION3: 'ACTION3',
       ACTION4: 'ACTION4' }
-  let type1 = a.combineActionTypes(
+  let type1 = combineActionTypes(
     'ACTION1',
     'ACTION2'
   )
 
-  let type2 = a.combineActionTypes(
+  let type2 = combineActionTypes(
     'ACTION3',
     'ACTION4'
   )
 
-  let combined = a.combineActionTypes(
+  let combined = combineActionTypes(
     type1,
     type2
   )
 
   expect(combined()).toEqual(expected)
 
-  let grouped = a.combineActionTypes(
-    a.groupAs('type1')(type1),
-    a.groupAs('type2')(type2),
+  let grouped = combineActionTypes(
+    actionGroup('type1')(type1),
+    actionGroup('type2')(type2),
   )
 
   expect(grouped()).toEqual({ type1: { ACTION1: 'ACTION1', ACTION2: 'ACTION2' },

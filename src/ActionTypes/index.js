@@ -1,5 +1,5 @@
 import * as c from "@geekagency/composite-js";
-import * as z from "../Combinator/index"
+import * as z from "@geekagency/composite-js/Combinator"
 
 export const makeNamespaceEnhancer = c.curry((app, reducer, name)=> `${app}/${reducer}/${name}`);
 

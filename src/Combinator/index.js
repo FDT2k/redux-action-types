@@ -47,7 +47,6 @@ export const asProp =  c.as_prop;
 // Scalar x -> ArgEnhancer -> a  ->  Object as {x:a}
 export const asEnhancedProp = c.curry((key,enhance)=>c.compose(asProp(key),enhance))
 
-
 export const enhancedPropWithDefaultEnhancer= key => c.compose(asEnhancedProp(key),c.defaultTo(c.identity))
 
 // enhance is not currified because we want to be able to call with no arg()
@@ -61,7 +60,6 @@ export const asScalarPropWithDefaultValue = key=>value=> enhance=> c.compose(enh
 // transform an arg of a type into another
 export const transformArgToFunctionIfNeeded = defaultFn => c._either(c.is_type_function,defaultFn,c.identity)
 
-
 export const flattenArgsCombinator = c.flatten
 
 export const defaultArgTransformer = x=>asScalarPropWithDefaultValue(x)(x)
@@ -74,4 +72,16 @@ export const defaultArgsCombinator = c.compose(defaultCombineArgs,flattenArgsCom
 //makeCombine :: ArgumentCombinator -> (a...z) => Object
 export const makeObjectCombinator = argsCombinator=> (...args )=> c.divergeLeftThen(c.mergeAll)(...argsCombinator(args))
 
+export const makeCombineGroup = combinator =>  group => (...args) => c.compose(asProp(group),combinator(...args))
+
+export const makeFreezeEnhancer = combinator => enhancer => (...args )=> ()=>combinator(...args)(enhancer)
+
+export const makeExpander = c.curry ((argType,transform,subTypes,type) =>{
+	return subTypes.map(subType=>{
+		return argType(transform(type,subType));
+	});
+});
+
 export const combineObject=  makeObjectCombinator(defaultArgsCombinator);
+
+export const group = makeCombineGroup(combineObject)

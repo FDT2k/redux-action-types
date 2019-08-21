@@ -51,7 +51,6 @@ test('[ColorLogger]',()=>{
     CC.asFunctionProp('task',logTask),
     CC.asFunctionProp('skippedTask',skipTask),
     CC.asFunctionProp('erroredTask',erroredTask)
-
   )
 
 

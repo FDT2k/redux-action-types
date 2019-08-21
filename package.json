@@ -1,6 +1,6 @@
 {
   "name": "@geekagency/redux-action-types",
-  "version": "1.0.5",
+  "version": "1.2.0",
   "description": "Action Types lib for redux (or anything)",
   "main": "ActionTypes/index.js",
   "scripts": {

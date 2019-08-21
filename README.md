@@ -1,4 +1,3 @@
-
 # redux-action-types
 
 *This Readme is a Work in progress.
@@ -14,23 +13,26 @@ This is a modest contribution to propose a composable way to deal with action-ty
 
 
 ## Usage
-combineActionTypes returns a function, that accepts a function as parameter to apply action names.
+combineActionTypes returns a function, that accepts an Enhancer function as parameter
+
+    combineActionTypes :: (...args) => (Enhancer)=> Object
 
 That let's you define your ActionTypes somewhere, and reuse them in the reducer or action creator context
 
-in your action definition
+For example, in your action definition
 
     export ActionTypes = combineActionTypes (
     'LIST_TODO',
     'ADD_TODO',
     'FETCH_TODO',
-    'WHATEVER_TODO');
+    'WHATEVER_TODO'
+    );
 
 
 somewhere else
 
 
-    let actions = ActionTypes(name=> `myreducer-${name}`);
+    let actionsTypes = ActionTypes(name=> `myreducer-${name}`);
 
 	actions = {
 		LIST_TODO: 'myreducer-LIST_TODO'
@@ -39,15 +41,16 @@ somewhere else
 
 You can compose your actions like this
 
-	import {combineActionTypes,actionGroup} from '@geekagency/redux-action-types'
+	import {combineActionTypes,groupAs,hold} from '@geekagency/redux-action-types'
     import {actions: jobActionTypes } from './actions/jobs'
     import {actions: commentsActionTypes } from './actions/comments'
 
-	let nameForNewCommentReducer = name => name.reverse() //whatever
+	const renameComments = hold(x=> x+'_hey_its_not_the_same')
+
 	export const ActionTypes = combineActionTypes(
-		actionGroup('jobs')(jobActionTypes)
-		actionGroup('comments')(commentsActionTypes),
-		actionGroup('another_comment_reducer')(actionRename(nameForNewCommentReducer)(commentsActionTypes))
+		groupAs('jobs')(jobActionTypes)
+		groupAs('comments')(commentsActionTypes),
+		groupAs('another_comment_reducer')(renameComments(commentsActionTypes))
 	)
 
 would result in
@@ -88,17 +91,4 @@ Let's refactor some bits
 
 ## API
 
-  * combineActionTypes
-  * createActionName
-  * defaultNameCreator
-  * actionGroup
-  * actionRename
-  * lockName
-  * actionExpand
-  * actionType
-  * factory
-
-
-
-
-Happy ActionTypes composing
+WIP

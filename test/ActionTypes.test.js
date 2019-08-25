@@ -6,19 +6,19 @@ import * as a from '../src/ActionTypes';
 const nameEnhancer = a.makeNamespaceEnhancer('myapp')('myreducer')
 let CRUDExpand = a.expandSuffix(['INSERT','DELETE','UPDATE'])
 
-test ('ActionNamer',(done)=>{
+test ('ActionNamer',()=>{
   expect(nameEnhancer('test')).toBe('myapp/myreducer/test')
 })
 
 
 
-test ('ActionType',(done)=>{
+test ('ActionType',()=>{
   expect(a.actionType('LIST')()).toEqual({LIST:'LIST'})
   expect(a.actionType('LIST')(nameEnhancer)).toEqual({LIST:'myapp/myreducer/LIST'})
 })
 
 
-test ('ActionRename',(done)=>{
+test ('ActionRename',()=>{
   let nameEnhancer2 = a.makeNamespaceEnhancer('anotherapp')('anotherreducer')
   expect(
     a.actionType('LIST')()
@@ -38,7 +38,7 @@ test ('ActionRename',(done)=>{
       LIST2: 'anotherapp/anotherreducer/LIST2' })
 })
 
-test ('ActionExpand',(done)=>{
+test ('ActionExpand',()=>{
   let expected = {"JOB_DELETE": "JOB_DELETE", "JOB_INSERT": "JOB_INSERT"};
   let CDExpand = a.expandSuffix(['INSERT','DELETE']);
   expect( a.combineActionTypes(CDExpand('JOB'))()).toEqual(expected);
@@ -47,7 +47,7 @@ test ('ActionExpand',(done)=>{
 
 
 
-test ('CreateActionTypes',(done)=>{
+test ('CreateActionTypes',()=>{
   let expected = {
     LIST:'LIST'
   }
@@ -60,7 +60,7 @@ test ('CreateActionTypes',(done)=>{
 })
 
 
-test ('ActionGroup',(done)=>{
+test ('ActionGroup',()=>{
   let expected = {worker:  {
          "LIST": "LIST",
          "LISTMORE": "LISTMORE",
@@ -70,7 +70,7 @@ test ('ActionGroup',(done)=>{
   expect(res).toEqual(expected)
 })
 
-test ('Expand in group',(done)=>{
+test ('Expand in group',()=>{
   let expected = {worker: {
          LIST_INSERT:"LIST_INSERT",
          LIST_DELETE:"LIST_DELETE",
@@ -83,7 +83,7 @@ test ('Expand in group',(done)=>{
 
 
 
-test ('CreateActionTypes',(done)=>{
+test ('CreateActionTypes',()=>{
   let expected = {
     LIST:'LIST'
   }
@@ -100,7 +100,7 @@ test ('CreateActionTypes',(done)=>{
 })
 
 
-test ('CreateActionTypes_expand',(done)=>{
+test ('CreateActionTypes_expand',()=>{
   let expected = {
     LIST:'LIST',
     LIST_DELETE: "LIST_DELETE",
@@ -114,7 +114,7 @@ test ('CreateActionTypes_expand',(done)=>{
   expect(res()).toEqual(expected)
 })
 
-test ('CreateActionTypes_group',(done)=>{
+test ('CreateActionTypes_group',()=>{
   let expected = {
     LIST:'LIST',
     LIST_DELETE: "LIST_DELETE",
@@ -138,7 +138,7 @@ test ('CreateActionTypes_group',(done)=>{
 
 
 
-test ('Naming Actions and ensure that we dont erase actionRename',(done)=>{
+test ('Naming Actions and ensure that we dont erase actionRename',()=>{
   let expected = {
     LIST:'LIST',
     LIST_DELETE: "LIST_DELETE",
